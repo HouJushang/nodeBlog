@@ -1,3 +1,7 @@
 .idea/
 node_modules/
-.DS_Store
+.DS_Stores
+public/admin/bower_components/
+public/admin/node_modules/
+public/static/assets/
+public/admin/src/sass/.sass-cache/
