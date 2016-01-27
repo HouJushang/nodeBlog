@@ -11,6 +11,14 @@ var sourcemaps = require('gulp-sourcemaps');
 var cache = require('gulp-cached');
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
+var rev = require('gulp-reversion');
+
+//版本控制
+gulp.task('rev', function() {
+    gulp.src('./src/index.html')
+        .pipe(rev())
+        .pipe(gulp.dest('.'));
+});
 
 //输出html
 gulp.task('html', function () {
@@ -19,11 +27,18 @@ gulp.task('html', function () {
         .pipe(gulp.dest('./www/html'));
 });
 
+//输出lib
+gulp.task('lib', function () {
+    return gulp.src('./src/lib/**/*.*')
+        .pipe(cache('linting'))
+        .pipe(gulp.dest('./www/lib'));
+});
+
 gulp.task('compass', function () {
     gulp.src('src/sass/main.sass')
         .pipe(compass({
             config_file: 'src/config.rb',
-            css: 'www',
+            css: 'www/',
             sass: 'src/sass/'
         }))
         .on('error', function (err) {
@@ -33,7 +48,7 @@ gulp.task('compass', function () {
             });
             this.emit('end');
         })
-        .pipe(gulp.dest('../www/'))
+        .pipe(gulp.dest('www/'))
 });
 
 gulp.task('script', function () {
@@ -48,10 +63,11 @@ gulp.task('script', function () {
 
 
 gulp.task('watch', function () {
-    gulp.watch('src/sass/*.sass', ['compass']);
-    gulp.watch('src/js/**/*.js', ['script']);
+    gulp.watch('src/sass/*.sass', ['compass','rev']);
+    gulp.watch('src/js/**/*.js', ['script','rev']);
     gulp.watch('src/html/**/*.html', ['html']);
-    gulp.watch(['www/main.css','www/main.js','www/html/**/*.html','index.html'], browserSync.reload);
+    gulp.watch('src/lib/**/*.*', ['lib']);
+    gulp.watch(['www/main.css','www/main.js','www/html/**/*.html','index.html'],browserSync.reload);
 });
 
 
