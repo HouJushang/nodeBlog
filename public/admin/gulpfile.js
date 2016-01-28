@@ -13,12 +13,12 @@ var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
 var rev = require('gulp-reversion');
 
-//版本控制
-gulp.task('rev', function() {
-    gulp.src('./src/index.html')
-        .pipe(rev())
-        .pipe(gulp.dest('.'));
-});
+////版本控制
+//gulp.task('rev', function() {
+//    gulp.src('./src/index.html')
+//        .pipe(rev())
+//        .pipe(gulp.dest('../'));
+//});
 
 //输出html
 gulp.task('html', function () {
@@ -63,8 +63,8 @@ gulp.task('script', function () {
 
 
 gulp.task('watch', function () {
-    gulp.watch('src/sass/*.sass', ['compass','rev']);
-    gulp.watch('src/js/**/*.js', ['script','rev']);
+    gulp.watch('src/sass/*.sass', ['compass']);
+    gulp.watch('src/js/**/*.js', ['script']);
     gulp.watch('src/html/**/*.html', ['html']);
     gulp.watch('src/lib/**/*.*', ['lib']);
     gulp.watch(['www/main.css','www/main.js','www/html/**/*.html','index.html'],browserSync.reload);
@@ -72,7 +72,7 @@ gulp.task('watch', function () {
 
 
 //default task
-gulp.task('default', ['watch','compass','script','html'], function () {
+gulp.task('default', ['watch','compass','script','html','lib'], function () {
     browserSync.init({
         server: {
             baseDir: "./"

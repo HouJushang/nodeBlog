@@ -3,22 +3,20 @@ var router = express.Router();
 var UserModel = require('./database').model('User',require('../schema/userSchema'));
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    var json = {
-        code: 1,
-        mes: '信息标识',
-        data: ''
-    }
+router.post('/', function (req, res, next) {
+    var json = require('../config/response');
     UserModel.findOne({
-        name:'hou'
+        name:req.body.name,
+        password: req.body.password
     }).exec(function(err,result){
         if(result){
+            json.mes = '登录成功';
             json.data = result;
         }else{
-            console.log('没有数据!');
+            json.code = 201;
+            json.mes = '用户名和密码不匹配';
         }
-        console.log(json);
-        res.render('index', {title: json});
+        res.json(json);
     });
 });
 module.exports = router;

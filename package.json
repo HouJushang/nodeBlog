@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/wwwa"
+    "start": "supervisor bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -16,6 +16,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "debug": "^2.2.0",
+    "express-session": "^1.13.0",
     "mongoose": "^4.3.7"
   }
 }

@@ -1,48 +1,47 @@
 app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert', 'toast',function ($q, $http, $rootScope,SERVER_URL, $state,cAlert,toast)
 {
     this.post = function (postData) {
-        return this.ajax(postData, 'POST');
+        var req = {
+            method: 'POST',
+            url: SERVER_URL + postData.url,
+            data: postData.data
+        }
+        return this.ajax(req,postData);
     };
+
     this.get = function (postData) {
-        return this.ajax(postData, 'GET');
-    };
-    this.ajax = function (postData, method) {
+        var req = {
+            method: 'GET',
+            url: SERVER_URL + postData.url,
+            params: postData.data
+        }
+        return this.ajax(req,postData);
+    }
+
+    this.ajax = function (req,postData) {
         if(postData.toast&&$rootScope.toast.has){
             alert('不要重复操作!');
+            return false
         }
         if(postData.toast){
             toast.create(postData.toast);
         }
         var defer = $q.defer();
         var promise = defer.promise;
-        $http({
-            method: method,
-            url: SERVER_URL + postData.url,
-            params: postData.data,
-        }).then(
+        $http(req).then(
             function success(response) {
-                if (response.data.code == 0) {
+                console.log(1111,response);
+                if(response.data.code==200){
                     defer.resolve(response.data.data);
-                }
-                else if (response.data.code == 1002 || response.data.code == 1003||response.data.code == 3001) {
-                    sessionStorage.username = '';
-                    localStorage.phone = '';
-                    localStorage.password = '';
+                }else{
                     cAlert.create({
-                        mes:response.data.msg
-                    });
-                    defer.reject(response.data.msg);
-                    $state.go('login');
-                }
-                else {
-                    cAlert.create({
-                        mes:response.data.msg
+                        mes:response.data.mes
                     })
                 }
             },
             function failed(response) {
                 cAlert.create({
-                    mes:'当前下单人数过多，请稍后再试！'
+                    mes:'服务端错误！'
                 })
             }
         );
