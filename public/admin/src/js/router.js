@@ -10,4 +10,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/login.html",
             controller: "loginController"
         })
+        .state('layout', {
+            url: "/layout",
+            templateUrl: "www/html/layout.html",
+            controller: "layoutController"
+        })
 }]);
