@@ -1,4 +1,4 @@
-app.controller('loginController', ['$scope','ajax','toast',function ($scope,ajax,toast) {
+app.controller('loginController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
     $scope.submit = function () {
         ajax.post({
             url: '/login',
