@@ -6,22 +6,36 @@
 </header>
 <nav>
     <div class="nav-title" ng-click="nav1 = !nav1">
-        栏目管理
+        常用操作
     </div>
-    <dl class="nav-content" ng-show="nav1">
-        <dd>
-            添加栏目
-        </dd>
-        <dd>
-            添加栏目
-        </dd>
-        <dd class="active">
-            添加栏目
-        </dd>
-        <dd>
-            添加栏目
-        </dd>
-    </dl>
+    <div class="nav-content" ng-show="nav1">
+        <a>
+            发布文章
+        </a>
+        <a>
+            文章列表
+        </a>
+    </div>
+    <div class="nav-title" ng-click="nav2 = !nav2">
+        网站管理
+    </div>
+    <div class="nav-content" ng-show="nav2">
+        <a>
+            评论管理
+        </a>
+        <a>
+            栏目设置
+        </a>
+        <a>
+            网站信息设置
+        </a>
+        <a>
+            友情链接
+        </a>
+        <a>
+            管理员管理
+        </a>
+    </div>
 </nav>
 <div id="layout-content">
     内容

@@ -19,19 +19,28 @@ nav
     bottom: 0
     width: $navWidth
     background: #293038
-    color: #fff
     .nav-title
         height: 40px
         padding-left: 20px
         line-height: 40px
         background: #22282e
+        color: #fff
     .nav-content
-        dd
+        transition: .1s linear all
+        overflow: hidden
+        //height: 160px
+        //&.ng-hide
+        //    height: 0
+        a
+            color: #fff
+            display: block
             padding-left: 25px
             height: 40px
             line-height: 40px
             &.active
                 background: #0099CC
+            &:hover
+                background: #37424f
 #layout-content
     position: fixed
     top: $headerHeight
