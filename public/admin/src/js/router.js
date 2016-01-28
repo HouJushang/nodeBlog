@@ -28,4 +28,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/category/add.html",
             controller: "addCategoryController"
         })
+        //用户管理
+        .state('admin.manager', {
+            url: "/manager",
+            templateUrl: "www/html/manager/addManager.html",
+            controller: "managerController"
+        })
 }]);
