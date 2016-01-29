@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('../dbModel/user');
 var resJson = require('../config/response');
+var users = require('../dbModel/users');
 
-/* GET home page. */
+
+/* POST login. */
 router.post('/', function (req, res, next) {
-    userModel.findOne({
+    users.findOne({
         name:req.body.name,
         password: req.body.password
     }).exec(function(err,result){

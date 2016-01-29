@@ -28,4 +28,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/category/add.html",
             controller: "addCategoryController"
         })
+        //管理员管理
+        .state('layout.user', {
+            url: "/user",
+            templateUrl: "www/html/user/list.html",
+            controller: "userController"
+        })
+        .state('layout.adduser', {
+            url: "/adduser",
+            templateUrl: "www/html/user/add.html",
+            controller: "addUserController"
+        })
 }]);

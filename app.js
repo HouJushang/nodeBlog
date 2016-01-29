@@ -6,22 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 var session = require('express-session');
-
 var login = require('./routes/login');
 var users = require('./routes/users');
 
 
 var app = express();
 
-//var routerArr = ['login','users'];
-app.use('/login', login);
-app.use('/users', users);
-
-//routerArr.forEach(function (item) {
-//    console.log('./routes/'+item,'/' + item);
-//    var route = require('./routes/'+item);
-//    app.use('/' + item, route);
-//})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,10 +25,14 @@ app.use(cookieParser());
 app.use(session({ secret: 'blog' }));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var routerArr = ['login','users'];
+routerArr.forEach(function (item) {
+    var route = require('./routes/'+item);
+    app.use('/' + item, route);
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
