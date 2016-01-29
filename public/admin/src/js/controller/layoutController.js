@@ -1,3 +1,5 @@
-app.controller('layoutController', ['$scope', function ($scope) {
-    
+app.controller('layoutController', ['$scope','$window',function ($scope,$window) {
+    $scope.goBack = function(){
+        $window.history.back();
+    }
 }]);
