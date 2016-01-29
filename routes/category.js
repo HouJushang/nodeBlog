@@ -3,26 +3,55 @@
  */
 var express = require('express');
 var router = express.Router();
-var userModel = require('../dbModel/user');
+var category = require('../dbModel/category')
 var resJson = require('../config/response');
 
-/* GET home page. */
+/* category. */
+router.post('/', function (req, res, next) {
+    category.find({}).exec(function (err, result) {
+        if (result) {
+            resJson.mes = '栏目列表';
+            resJson.code = 200;
+            resJson.data = result;
+        } else {
+            resJson.mes = '没有栏目';
+            resJson.code = 201;
+        }
+        res.json(resJson);
+    })
+});
 router.post('/add', function (req, res, next) {
-    //userModel.findOne({
-    //    name:req.body.name,
-    //    password: req.body.password
-    //}).exec(function(err,result){
-    //    if(result){
-    //        req.session.user_id = result._id;
-    //        req.session.user = result.name;
-    //        resJson.mes = '登录成功';
-    //        resJson.data = result;
-    //    }else{
-    //        resJson.code = 201;
-    //        resJson.mes = '用户名和密码不匹配';
-    //    }
-    //    res.json(resJson);
-    //});
+    category.findOne(req.body).exec(function (err, result) {
+        if (result) {
+            resJson.mes = '栏目已经存在';
+            resJson.code = 201;
+        } else {
+            category.create(req.body, function (err, result) {
+                if (err) {
+                    resJson.mes = '添加错误';
+                    resJson.code = 201;
+                } else {
+                    resJson.code = 200;
+                    resJson.data = result;
+                    resJson.mes = '添加成功';
+                }
+            })
+        }
+        res.json(resJson);
+    })
+});
+router.post('/del', function (req, res, next) {
+    category(req.body).remove(function (err, result) {
+        if (result) {
+            resJson.mes = '删除成功';
+            resJson.data = result;
+            resJson.code = 200;
+        } else {
+            resJson.mes = '删除失败';
+            resJson.code = 201;
+        }
+        res.json(resJson);
+    })
 });
 module.exports = router;
 

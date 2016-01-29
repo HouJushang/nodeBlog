@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-var userSchema = new mongoose.Schema({
-    name: String,
-    password: String
+var categorySchema = new mongoose.Schema({
+    name: String
 });
-module.exports = require('../my_modules/database').model('category',userSchema) ;
+module.exports = require('../my_modules/database').model('category',categorySchema) ;

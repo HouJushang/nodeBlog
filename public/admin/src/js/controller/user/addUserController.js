@@ -8,8 +8,8 @@ app.controller('addUserController', ['$scope', 'ajax', 'toast', '$state', functi
             },
             toast: "添加中..."
         }).then(function (result) {
-            $state.go('layout.user')
             toast.dismiss('添加成功!');
+            $state.go('layout.user')
         })
     }
 }]);

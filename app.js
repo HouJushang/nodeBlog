@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-var routerArr = ['login','users'];
+var routerArr = ['login','users','category'];
 routerArr.forEach(function (item) {
     var route = require('./routes/'+item);
     app.use('/' + item, route);
