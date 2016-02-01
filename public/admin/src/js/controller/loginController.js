@@ -1,4 +1,4 @@
-app.controller('loginController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
+app.controller('loginController', ['$scope', '$state', 'ajax', 'toast', function ($scope, $state, ajax, toast) {
     $scope.submit = function () {
         ajax.post({
             url: '/login',
@@ -10,6 +10,7 @@ app.controller('loginController', ['$scope', 'ajax', 'toast', function ($scope, 
         }).then(
             function (result) {
                 toast.dismiss('登录成功!');
+                $state.go('layout')
             }
         )
     }
