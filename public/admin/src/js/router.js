@@ -39,4 +39,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/user/add.html",
             controller: "addUserController"
         })
+        //文章管理
+        .state('layout.addarticle',{
+            url: "/addarticle",
+            templateUrl: "www/html/article/add.html",
+            controller: "addArticleController"
+        })
 }]);
