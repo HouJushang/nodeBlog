@@ -45,4 +45,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/article/add.html",
             controller: "addArticleController"
         })
+        //推荐位置管理
+        .state('layout.recommend',{
+            url: '/recommend',
+            templateUrl: "www/html/recommend/recommend.html",
+            controller: "recommendController"
+        })
+        .state('layout.addrecommend',{
+            url: '/addrecommend',
+            templateUrl: "www/html/recommend/add.html",
+            controller: "addRecommendController"
+        })
 }]);

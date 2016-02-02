@@ -5,28 +5,31 @@
     </p>
 </header>
 <nav>
-    <div class="nav-title" ng-click="nav1 = !nav1">
+    <div class="nav-title">
         常用操作
     </div>
-    <div class="nav-content" ng-show="nav1">
+    <div class="nav-content">
         <a ui-sref="layout.addarticle">
             发布文章
         </a>
         <a>
             文章列表
         </a>
+        <a>
+            回收站
+        </a>
     </div>
-    <div class="nav-title" ng-click="nav2 = !nav2">
+    <div class="nav-title">
         网站管理
     </div>
-    <div class="nav-content" ng-show="nav2">
+    <div class="nav-content">
         <a>
             评论管理
         </a>
         <a ui-sref="layout.category">
             栏目设置
         </a>
-        <a href="">
+        <a href="layout.recommend">
             推荐位管理
         </a>
         <a>
@@ -37,6 +40,9 @@
         </a>
         <a ui-sref="layout.user">
             管理员管理
+        </a>
+        <a>
+            上传文件管理
         </a>
     </div>
 </nav>
