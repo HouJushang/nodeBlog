@@ -1,15 +1,12 @@
-app.controller('articleController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
-    ajax.post({
-        url: '/users'
-    }).then(
-        function (result) {
-            $scope.list = result;
-        }
-    )
+app.controller('articleController', ['$scope', 'ajax', 'toast','articleService', function ($scope, ajax, toast,articleService) {
+
+    articleService.list().then(function(result){
+        $scope.list = result;
+    })
 
     $scope.del = function(id,index){
         ajax.post({
-            url: '/users/del',
+            url: '/article/del',
             data:{
               _id: id
             },

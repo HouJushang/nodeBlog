@@ -40,6 +40,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             controller: "addUserController"
         })
         //文章管理
+        .state('layout.article',{
+            url: "/article",
+            templateUrl: "www/html/article/article.html",
+            controller: "articleController"
+        })
         .state('layout.addarticle',{
             url: "/addarticle",
             templateUrl: "www/html/article/add.html",
