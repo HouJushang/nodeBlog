@@ -1,6 +1,6 @@
-app.controller('userController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
+app.controller('recommendController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
     ajax.post({
-        url: '/users'
+        url: '/recommend'
     }).then(
         function (result) {
             $scope.list = result;
@@ -9,7 +9,7 @@ app.controller('userController', ['$scope', 'ajax', 'toast', function ($scope, a
 
     $scope.del = function(id,index){
         ajax.post({
-            url: '/users/del',
+            url: '/recommend/del',
             data:{
               _id: id
             },

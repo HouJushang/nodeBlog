@@ -1,11 +1,7 @@
-app.controller('listCategoryController', ['$scope', 'ajax', 'toast', function ($scope, ajax, toast) {
-    ajax.post({
-        url: '/category'
-    }).then(
-        function (result) {
-            $scope.list = result;
-        }
-    )
+app.controller('listCategoryController', ['$scope', 'ajax', 'toast','categoryService', function ($scope, ajax, toast,categoryService) {
+    categoryService.list().then(function(result){
+        $scope.list = result;
+    })
 
     $scope.del = function (id, index) {
         ajax.post({

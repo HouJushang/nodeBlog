@@ -1,23 +1,21 @@
 <div class="addCategory">
     <div class="col-sm-2">
-        <input type="text" class="form-control" placeholder="title" ng-model="title">
+        <input type="text" class="form-control" placeholder="title" ng-model="article.title">
     </div>
     <div class="col-sm-2">
-        <input name="content" class="form-control" placeholder="tag" ng-model="tag"/>
+        <input name="content" class="form-control" placeholder="category" ng-model="article.category"/>
     </div>
     <div class="col-sm-2">
-        <input name="content" class="form-control" placeholder="recommend" ng-model="recommend"/>
+        <input name="category" class="form-control" placeholder="tag" ng-model="article.tag"/>
+    </div>
+    <div class="col-sm-2">
+        <input name="content" class="form-control" placeholder="recommend" ng-model="article.recommend"/>
     </div>
     <div class="col-sm-12">
-        <textarea name="content" class="form-control" placeholder="content" ng-model="content"
+        <textarea name="content" class="form-control" placeholder="content" ng-model="article.content"
                   style="display: block; width: 100%; height: 200px;"></textarea>
     </div>
     <div class="col-sm-12">
         <button type="submit" class="btn btn-default" ng-click="submit()">submit</button>
     </div>
-    <section style="clear: both">
-        <marked ng-bind-html="content">
-        </marked>
-    </section>
-
 </div>
