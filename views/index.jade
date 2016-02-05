@@ -1,4 +1,4 @@
 extends layout
-
 block content
-  h1= title
+  each book, i in list
+    h2 #{book.title}
