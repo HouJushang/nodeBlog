@@ -3,19 +3,19 @@
  */
 var express = require('express');
 var router = express.Router();
-var marked = require('marked')
-var article = require('../dbModel/article')
+var marked = require('marked');
+var article = require('../dbModel/article');
 var resJson = require('../config/response');
 
 /* category. */
 router.post('/', function (req, res, next) {
     article.find({}).exec(function (err, result) {
         if (result) {
-            resJson.mes = '栏目列表';
+            resJson.mes = '文章列表';
             resJson.code = 200;
             resJson.data = result;
         } else {
-            resJson.mes = '没有栏目';
+            resJson.mes = '没有文章';
             resJson.code = 201;
         }
         res.json(resJson);

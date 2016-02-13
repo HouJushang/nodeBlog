@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var articleSchema = new mongoose.Schema({
     title: String,
-    category: String,
+    category: {type: mongoose.Schema.Types.ObjectId,ref:'category'},
     tag: String,
     recommend: String,
     content: String,

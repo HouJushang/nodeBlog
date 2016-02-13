@@ -30,7 +30,6 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
         var promise = defer.promise;
         $http(req).then(
             function success(response) {
-                console.log(1111,response);
                 if(response.data.code==200){
                     defer.resolve(response.data.data);
                 }else{
