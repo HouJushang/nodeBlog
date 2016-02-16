@@ -8,8 +8,6 @@ var mongoose = require("mongoose");
 var session = require('express-session');
 var login = require('./routes/login');
 var users = require('./routes/users');
-
-
 var app = express();
 
 
@@ -30,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./routes/index');
 app.use('/',indexRouter);
 
-var routerArr = ['login','users','category','recommend','article'];
+var routerArr = ['login','users','category','recommend','article','upload'];
 routerArr.forEach(function (item) {
     var route = require('./routes/'+item);
     app.use('/' + item, route);

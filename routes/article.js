@@ -9,8 +9,11 @@ var resJson = require('../config/response');
 
 /* category. */
 router.post('/', function (req, res, next) {
-    article.find({}).exec(function (err, result) {
+    article.find({})
+        .populate('category')
+        .exec(function (err, result) {
         if (result) {
+            console.log(result);
             resJson.mes = '文章列表';
             resJson.code = 200;
             resJson.data = result;

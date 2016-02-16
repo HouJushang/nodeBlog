@@ -11,7 +11,13 @@
     <div class="col-sm-2">
         <input  class="form-control" placeholder="tag" ng-model="article.tag"/>
     </div>
-
+    <div class="col-sm-2">
+        <button class="form-control btn btn-info " type="file"
+                ngf-select="uploadImg($file)"
+                accept="image/*">
+            选择图片
+        </button>
+    </div>
     <div class="col-sm-12">
         <textarea name="content" class="form-control" placeholder="content" ng-model="article.content"
                   style="display: block; width: 100%; height: 200px;"></textarea>

@@ -1,6 +1,7 @@
 app.controller('articleController', ['$scope', 'ajax', 'toast','articleService', function ($scope, ajax, toast,articleService) {
 
     articleService.list().then(function(result){
+        console.log(result);
         $scope.list = result;
     })
 

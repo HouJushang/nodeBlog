@@ -11,4 +11,13 @@ app.controller('addArticleController', ['$scope', 'ajax', 'toast', '$state', fun
             }
         )
     }
+
+    $scope.uploadImg = function(file){
+        alert(1);
+        ajax.upload({
+            file: file
+        }).then(function(result){
+            console.log(result);
+        })
+    }
 }]);

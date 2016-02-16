@@ -1,4 +1,4 @@
-app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert', 'toast',function ($q, $http, $rootScope,SERVER_URL, $state,cAlert,toast)
+app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert', 'toast','Upload',function ($q, $http, $rootScope,SERVER_URL, $state,cAlert,toast,Upload)
 {
     this.post = function (postData) {
         var req = {
@@ -8,7 +8,6 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
         }
         return this.ajax(req,postData);
     };
-
     this.get = function (postData) {
         var req = {
             method: 'GET',
@@ -17,7 +16,6 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
         }
         return this.ajax(req,postData);
     }
-
     this.ajax = function (req,postData) {
         if(postData.toast&&$rootScope.toast.has){
             alert('不要重复操作!');
@@ -46,6 +44,26 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
         );
         return promise
     }
+    this.upload = function (file,data) {
+        var deferred = $q.defer();
+        Upload.upload({
+            //服务端接收
+            url: SERVER_URL + '/upload',
+            //上传的同时带的参数
+            data: data,
+            file: file
+        }).then(function (resp) {
+            deferred.resolve(resp.data.data);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            //console.log(evt);
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            // deferred.resolve(progressPercentage);
+            //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+        return deferred.promise;
+    };
 }
 ])
 ;
