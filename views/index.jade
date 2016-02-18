@@ -1,4 +1,5 @@
 extends layout
 block content
   each book, i in list
-    h2 #{book.title}
+    h2
+      a(href="article/#{book._id}") #{book.title}

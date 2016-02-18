@@ -53,12 +53,12 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
             data: data,
             file: file
         }).then(function (resp) {
-            deferred.resolve(resp.data.data);
+            deferred.resolve(resp.data);
         }, function (resp) {
             console.log('Error status: ' + resp.status);
         }, function (evt) {
-            //console.log(evt);
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log(evt);
+           // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             // deferred.resolve(progressPercentage);
             //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
