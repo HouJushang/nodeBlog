@@ -25,7 +25,7 @@ router.post('/', function (req, res, next) {
         })
 });
 router.post('/add', function (req, res, next) {
-    req.body.content = marked(req.body.content);
+    req.body.htmlContent = marked(req.body.content);
     article.create(req.body, function (err, result) {
         if (err) {
             resJson.mes = '添加错误';
@@ -53,7 +53,6 @@ router.post('/del', function (req, res, next) {
 });
 router.post('/query', function (req, res, next) {
     article.findOne({_id: req.body.id})
-        .populate('category')
         .exec(function (err, result) {
             if (!err) {
                 resJson.mes = '数据获取成功';
@@ -65,6 +64,21 @@ router.post('/query', function (req, res, next) {
             }
             res.json(resJson);
         })
+})
+router.post('/update',function(req,res,next){
+    var conditions = { _id: req.body._id },
+        update = req.body,
+        options = { multi: true };
+    article.update(conditions, update, options, function(err){
+        if(!err){
+            resJson.code = 200;
+            resJson.mes='网站信息更新成功';
+        }else{
+            resJson.code = 201;
+            resJson.mes='网站信息更新失败';
+        }
+        res.json(resJson);
+    })
 })
 
 

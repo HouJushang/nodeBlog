@@ -5,6 +5,7 @@ var articleSchema = new mongoose.Schema({
     tag: String,
     recommend: String,
     content: String,
+    htmlContent: String,
     time: {type: Date, default: Date.now},
     count: {type: Number, default: 0},
     status: {type: Number, default: 1}
