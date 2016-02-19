@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./routes/index');
 app.use('/',indexRouter);
 
-var routerArr = ['login','users','category','recommend','article','upload'];
+var routerArr = ['login','users','category','recommend','article','upload','webinfo'];
 routerArr.forEach(function (item) {
     var route = require('./routes/'+item);
     app.use('/' + item, route);

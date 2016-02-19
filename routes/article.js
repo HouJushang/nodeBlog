@@ -12,17 +12,17 @@ router.post('/', function (req, res, next) {
     article.find({})
         .populate('category')
         .exec(function (err, result) {
-        if (result) {
-            console.log(result);
-            resJson.mes = '文章列表';
-            resJson.code = 200;
-            resJson.data = result;
-        } else {
-            resJson.mes = '没有文章';
-            resJson.code = 201;
-        }
-        res.json(resJson);
-    })
+            if (result) {
+                console.log(result);
+                resJson.mes = '文章列表';
+                resJson.code = 200;
+                resJson.data = result;
+            } else {
+                resJson.mes = '没有文章';
+                resJson.code = 201;
+            }
+            res.json(resJson);
+        })
 });
 router.post('/add', function (req, res, next) {
     req.body.content = marked(req.body.content);
@@ -51,5 +51,22 @@ router.post('/del', function (req, res, next) {
         res.json(resJson);
     })
 });
+router.post('/query', function (req, res, next) {
+    article.findOne({_id: req.body.id})
+        .populate('category')
+        .exec(function (err, result) {
+            if (!err) {
+                resJson.mes = '数据获取成功';
+                resJson.data = result;
+                resJson.code = 200;
+            } else {
+                resJson.mes = '获取详情错误';
+                resJson.code = 201;
+            }
+            res.json(resJson);
+        })
+})
+
+
 module.exports = router;
 

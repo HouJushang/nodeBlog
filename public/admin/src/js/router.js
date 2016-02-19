@@ -50,6 +50,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/article/add.html",
             controller: "addArticleController"
         })
+        .state('layout.updatearticle',{
+            url: "/updatearticle/:id",
+            templateUrl: "www/html/article/add.html",
+            controller: "updateArticleController"
+        })
         //推荐位置管理
         .state('layout.recommend',{
             url: '/recommend',
@@ -60,5 +65,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/addrecommend',
             templateUrl: "www/html/recommend/add.html",
             controller: "addRecommendController"
+        })
+        //网站信息设置
+        .state('layout.webinfo',{
+            url: '/webinfo',
+            templateUrl: "www/html/webinfo/webinfo.html",
+            controller: "webInfoController"
         })
 }]);
