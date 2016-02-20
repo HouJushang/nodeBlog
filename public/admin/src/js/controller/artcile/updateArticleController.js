@@ -21,7 +21,6 @@ app.controller('updateArticleController', ['$scope', 'ajax', 'toast', '$state', 
             }
         )
     };
-
     $scope.uploadImg = function (file) {
         ajax.upload(file).then(function (result) {
             $scope.imgPath = SERVER_URL + "/upload/" + result.filename;
