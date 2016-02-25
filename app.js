@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./routes/index');
 app.use('/',indexRouter);
 
-var routerArr = ['login','users','category','recommend','article','upload','webinfo'];
+var routerArr = ['login','users','category','recommend','article','upload','webinfo','information'];
 routerArr.forEach(function (item) {
     var route = require('./routes/'+item);
     app.use('/' + item, route);
@@ -66,7 +66,7 @@ app.use(function (err, req, res, next) {
 });
 
 var mongoose = require("mongoose");
-var db = mongoose.createConnection('localhost', 'blog');
+var db = mongoose.createConnection('192.168.1.103', 'blog');
 db.on('error', console.error);
 db.once('open', function () {
     //console.log('mongodb is true')

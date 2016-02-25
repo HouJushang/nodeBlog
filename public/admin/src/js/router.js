@@ -71,5 +71,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             url: '/webinfo',
             templateUrl: "www/html/webinfo/webinfo.html",
             controller: "webInfoController"
+        })        
+        //个人信息设置
+        .state('layout.information',{
+            url: '/information',
+            templateUrl: "www/html/webinfo/information.html",
+            controller: "informationController"
         })
 }]);
