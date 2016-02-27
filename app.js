@@ -66,7 +66,7 @@ app.use(function (err, req, res, next) {
 });
 
 var mongoose = require("mongoose");
-var db = mongoose.createConnection('192.168.1.103', 'blog');
+var db = mongoose.createConnection('localhost', 'blog');
 db.on('error', console.error);
 db.once('open', function () {
     //console.log('mongodb is true')
