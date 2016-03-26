@@ -1,7 +1,11 @@
 var webinfo = require('../dbModel/webinfo');
-function getWebinfo(){
+var promise = new Promise(function(resolve, reject) {
     webinfo.find({}).exec(function (err,result){
-        return result[0];
+        if(err){
+            reject(error);
+        }else{
+            resolve(result[0]);
+        }
     });
-}
-module.exports = getWebinfo;
+});
+module.exports = promise;
