@@ -5,24 +5,22 @@ var webinfo = require('../my_modules/webinfo');
 
 
 router.get('/', function (req, res, next) {
-    webinfo.then(function(result){
-        var renderData = {
-            webinfo: result
-        };
-        console.log(renderData);
-        res.render('index', renderData);
+
+    var renderData = {};
+    webinfo.then(function (result) {
+        renderData.webinfo = result;
+        article
+            .find({})
+            .skip(0)
+            .limit(3)
+            .populate('category')
+            .exec(function (err, result) {
+                renderData.listData = result;
+                console.log(renderData);
+                res.render('index', renderData);
+            });
     });
-    //var renderData = {};
-    //article.find({})
-    //    .populate('category')
-    //    .exec(function (err, result) {
-    //        renderData.list = result;
-    //        webinfo.find({})
-    //            .exec(function (err, result) {
-    //                renderData.webinfo = result[0];
-    //                res.render('index', renderData);
-    //            })
-    //    })
+
 });
 
 router.get('/article/:id', function (req, res, next) {
@@ -31,8 +29,8 @@ router.get('/article/:id', function (req, res, next) {
         .populate('category')
         .exec(function (err, result) {
             renderData.result = result;
-            renderData.webinfo= {
-                title : result.title,
+            renderData.webinfo = {
+                title: result.title,
                 keword: result.keyword,
             }
             res.render('detail', renderData);

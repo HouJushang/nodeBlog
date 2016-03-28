@@ -1,9 +1,9 @@
 var webinfo = require('../dbModel/webinfo');
-var promise = new Promise(function(resolve, reject) {
-    webinfo.find({}).exec(function (err,result){
-        if(err){
+var promise = new Promise(function (resolve, reject) {
+    webinfo.find({}).exec(function (err, result) {
+        if (err) {
             reject(error);
-        }else{
+        } else {
             resolve(result[0]);
         }
     });
