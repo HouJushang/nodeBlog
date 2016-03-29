@@ -1,10 +1,10 @@
 {{#each listData}}
-    <div class="post"><h2 class="post-title"><a href="/emotion/windy.html">{{title}}</a></h2>
+    <div class="post"><h2 class="post-title"><a href="/article/{{_id}}">{{title}}</a></h2>
         <div class="post-meta">{{addTimeObj}}</div>
-        <a data-disqus-identifier="emotion/windy.html" href="/emotion/windy.html#disqus_thread"
+        <a href="/emotion/windy.html#disqus_thread"
            class="disqus-comment-count">11条评论</a>
         <div class="post-content">
             {{description}}
         </div>
-        <p class="readmore"><a href="/emotion/windy.html">阅读更多</a></p></div>
+        <p class="readmore"><a href="/article/{{_id}}">阅读更多</a></p></div>
 {{/each}}

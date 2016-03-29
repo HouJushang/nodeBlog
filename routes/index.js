@@ -38,9 +38,9 @@ router.get('/', function (req, res, next) {
         })
     })
     Promise.all([webinfoPromise, articleList, categoryData, count]).then(function (value) {
-        value[1].forEach(function(item,index,arr){
+        value[1].forEach(function (item, index, arr) {
             var dateObj = new Date(item.addTime);
-            item.addTimeObj = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+            item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
         })
         var renderData = {
             webinfo: value[0],
@@ -56,16 +56,40 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/article/:id', function (req, res, next) {
-    var renderData = {};
-    article.findOne({_id: req.params.id})
-        .populate('category')
-        .exec(function (err, result) {
-            renderData.result = result;
-            renderData.webinfo = {
-                title: result.title,
-                keword: result.keyword,
-            }
-            res.render('detail', renderData);
+    console.log(1111);
+    var webinfoPromise = new Promise(function (resolve, reject) {
+        webinfo.then(function (result) {
+            resolve(result)
         })
+    });
+    var categoryData = new Promise(function (resolve, reject) {
+        categoryModel.find({}).exec(function (err, result) {
+            resolve(result);
+        });
+    })
+    var artPromise = new Promise(function (resolve, reject) {
+        artModel.findOne({_id: req.params.id})
+            .populate('category')
+            .exec(function (err, result) {
+                resolve(result)
+            })
+    });
+    Promise.all([webinfoPromise, categoryData, artPromise]).then(function (value) {
+        renderData = {};
+        renderData.webinfo = {
+                title: value[0].title,
+                keword:  value[2].keyword,
+                description: value[2].description
+            }
+        renderData.category = value[1];
+        value[2].addTimeObj = value[2].addTime.getFullYear() + "-" + (value[2].addTime.getMonth() + 1) + "-" + value[2].addTime.getDate();
+        renderData.artData = value[2];
+        console.log(renderData);
+        res.render('detail', renderData);
+    }, function (reason) {
+        console.log(reason);
+        res.render('error', reason);
+    })
+
 })
 module.exports = router;
