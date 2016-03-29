@@ -6,7 +6,9 @@ var articleSchema = new mongoose.Schema({
     recommend: String,
     content: String,
     htmlContent: String,
-    time: {type: Date, default: Date.now},
+    description: String,
+    updateTime: {type: Date},
+    addTime: {type: Date, default: Date.now},
     count: {type: Number, default: 0},
     status: {type: Number, default: 1}
 });

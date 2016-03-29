@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var marked = require('marked');
 var article = require('../dbModel/article');
+var tagModel = require('../dbModel/tag');
 var resJson = require('../config/response');
 
 /* category. */
@@ -25,6 +26,35 @@ router.post('/', function (req, res, next) {
         })
 });
 router.post('/add', function (req, res, next) {
+    //tag do
+    var tagArr = req.body.tag.split(',')
+    tagArr.forEach(function (item, index, arr) {
+        tagModel.findOne({name: item}).exec(function (err, result) {
+            if (result) {
+                //有标签,+1
+                var conditions = {_id: result._id},
+                    update = {count: result.count + 1},
+                    options = {multi: true};
+                tagModel.update(conditions, update, options, function (err) {
+                    if (!err) {
+                        console.log('标签数据count更新成功!')
+                    } else {
+                        console.log('标签数据count更新失败!')
+                    }
+                });
+            } else {
+                tagModel.create({
+                    name: item
+                }, function () {
+                    if (err) {
+                        console.log('添加失败!');
+                    } else {
+                        console.log('添加成功!');
+                    }
+                })
+            }
+        })
+    })
     req.body.htmlContent = marked(req.body.content);
     article.create(req.body, function (err, result) {
         if (err) {
@@ -65,22 +95,20 @@ router.post('/query', function (req, res, next) {
             res.json(resJson);
         })
 })
-router.post('/update',function(req,res,next){
-    var conditions = { _id: req.body._id },
+router.post('/update', function (req, res, next) {
+    var conditions = {_id: req.body._id},
         update = req.body,
-        options = { multi: true };
-    article.update(conditions, update, options, function(err){
-        if(!err){
+        options = {multi: true};
+    article.update(conditions, update, options, function (err) {
+        if (!err) {
             resJson.code = 200;
-            resJson.mes='网站信息更新成功';
-        }else{
+            resJson.mes = '网站信息更新成功';
+        } else {
             resJson.code = 201;
-            resJson.mes='网站信息更新失败';
+            resJson.mes = '网站信息更新失败';
         }
         res.json(resJson);
     })
 })
-
-
 module.exports = router;
 

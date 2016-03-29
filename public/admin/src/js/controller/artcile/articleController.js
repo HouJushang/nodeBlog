@@ -19,5 +19,4 @@ app.controller('articleController', ['$scope', 'ajax', 'toast','articleService',
             }
         )
     }
-
 }]);

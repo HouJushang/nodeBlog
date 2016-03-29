@@ -11,6 +11,7 @@ app.controller('updateArticleController', ['$scope', 'ajax', 'toast', '$state', 
     })
 
     $scope.submit = function () {
+        $scope.article.updateTime = new Date();
         ajax.post({
             url: '/article/update',
             data: $scope.article,

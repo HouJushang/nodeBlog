@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var article = require('../dbModel/article');
+var artList = require('../my_modules/artList');
 var webinfo = require('../my_modules/webinfo');
+var categoryModel = require('../dbModel/category');
+var artModel = require('../dbModel/article')
 
 
 router.get('/', function (req, res, next) {
+
+    var pageSize = 5;
+    var currentPage = 1;
 
     var webinfoPromise = new Promise(function (resolve, reject) {
         webinfo.then(function (result) {
@@ -12,19 +17,36 @@ router.get('/', function (req, res, next) {
         })
     });
     var articleList = new Promise(function (resolve, reject) {
-        article
-            .find({})
-            .skip(0)
-            .limit(3)
-            .populate('category')
-            .exec(function (err, result) {
-                resolve(result);
-            });
+        artList({
+            data: {},
+            page: {
+                pageSize: 5,
+                currentPage: 0
+            }
+        }).then(function (result) {
+            resolve(result);
+        })
     })
-    Promise.all([webinfoPromise, articleList]).then(function (value) {
+    var categoryData = new Promise(function (resolve, reject) {
+        categoryModel.find({}).exec(function (err, result) {
+            resolve(result);
+        });
+    })
+    var count = new Promise(function (resolve, reject) {
+        artModel.count().exec(function (err, result) {
+            resolve(result);
+        })
+    })
+    Promise.all([webinfoPromise, articleList, categoryData, count]).then(function (value) {
+        value[1].forEach(function(item,index,arr){
+            var dateObj = new Date(item.addTime);
+            item.addTimeObj = dateObj.getFullYear()+"-"+(dateObj.getMonth()+1)+"-"+dateObj.getDate();
+        })
         var renderData = {
             webinfo: value[0],
-            listData: value[1]
+            listData: value[1],
+            category: value[2],
+            count: Math.ceil(value[3] / pageSize)
         }
         res.render('index', renderData);
     }, function (reason) {
