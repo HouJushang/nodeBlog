@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var artList = require('../my_modules/artList');
-var webinfo = require('../my_modules/webinfo');
+
 var categoryModel = require('../dbModel/category');
 var artModel = require('../dbModel/article');
-var tagModel = require('../dbModel/tag');
-var baseData = require('../my_modules/base')
+
+var artList = require('../my_modules/artList');
+var webinfo = require('../my_modules/webinfo');
+var baseData = require('../my_modules/base');
 
 
 // index router
@@ -14,6 +15,12 @@ router.get('/', function (req, res, next) {
 
     var pageSize = 5;
     var currentPage = 1;
+
+    var baseDataPromise = new Promise(function (resolve, reject) {
+        baseData.then(function (result) {
+            resolve(result);
+        })
+    });
     var webinfoPromise = new Promise(function (resolve, reject) {
         webinfo.then(function (result) {
             resolve(result)
@@ -30,46 +37,115 @@ router.get('/', function (req, res, next) {
             resolve(result);
         })
     })
-    var count = new Promise(function (resolve, reject) {
-        artModel.count().exec(function (err, result) {
+    Promise.all([baseDataPromise, webinfoPromise, articleList]).then(function (value) {
+        value[2].forEach(function (item, index, arr) {
+            var dateObj = new Date(item.addTime);
+            item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+        })
+        var renderData = {
+            category: value[0][0],
+            tag: value[0][1],
+            friend: value[0][2],
+            newTen: value[0][3],
+            webinfo: value[1],
+            listData: value[2],
+            //count: Math.ceil(value[3] / pageSize),
+        }
+        res.render('index', renderData);
+    }, function (reason) {
+        res.render('error', {mes: reason});
+    });
+});
+
+//分类查询文章
+router.get('/categories/:id', function (req, res, next) {
+
+    var baseDataPromise = new Promise(function (resolve, reject) {
+        baseData.then(function (result) {
             resolve(result);
         })
-    })
-    //获取分类
-    var categoryData = new Promise(function (resolve, reject) {
-        categoryModel.find({}).exec(function (err, result) {
-            resolve(result);
-        });
-    })
-    //获取标签
-    var tagPromise = new Promise(function (resolve, reject) {
-        tagModel.find({}).exec(function (err, result) {
-            if (!err) {
-                resolve(result)
-            } else {
-                reject(err)
+    });
+    var webinfoPromise = new Promise(function (resolve, reject) {
+        webinfo.then(function (result) {
+            resolve(result)
+        })
+    });
+    var articleList = new Promise(function (resolve, reject) {
+        artList({
+            data: {
+                category: req.params.id
+            },
+            page: {
+                pageSize: 5,
+                currentPage: 0
             }
+        }).then(function (result) {
+            resolve(result);
         })
     })
-    Promise.all([webinfoPromise, articleList, categoryData, count, tagPromise]).then(function (value) {
+    Promise.all([baseDataPromise, articleList,webinfoPromise]).then(function (value) {
         value[1].forEach(function (item, index, arr) {
             var dateObj = new Date(item.addTime);
             item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
         })
         var renderData = {
-            webinfo: value[0],
+            category: value[0][0],
+            tag: value[0][1],
+            friend: value[0][2],
+            newTen: value[0][3],
             listData: value[1],
-            category: value[2],
-            count: Math.ceil(value[3] / pageSize),
-            tag: value[4]
+            webinfo: value[2]
+            //count: Math.ceil(value[3] / pageSize),
         }
-        baseData();
+        console.log(11111, renderData);
         res.render('index', renderData);
-    }, function (reason) {
-        res.render('error', {mes: reason});
-    });
+    })
+})
 
-});
+//get tag atricle
+router.get('/tags/:tag', function (req, res, next) {
+
+    var baseDataPromise = new Promise(function (resolve, reject) {
+        baseData.then(function (result) {
+            resolve(result);
+        })
+    });
+    var webinfoPromise = new Promise(function (resolve, reject) {
+        webinfo.then(function (result) {
+            resolve(result)
+        })
+    });
+    var articleList = new Promise(function (resolve, reject) {
+        artList({
+            data: {
+                tag: new RegExp(req.params.tag,"i")
+            },
+            page: {
+                pageSize: 5,
+                currentPage: 0
+            }
+        }).then(function (result) {
+            resolve(result);
+        })
+    })
+    Promise.all([baseDataPromise, articleList,webinfoPromise]).then(function (value) {
+        value[1].forEach(function (item, index, arr) {
+            var dateObj = new Date(item.addTime);
+            item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+        })
+        var renderData = {
+            category: value[0][0],
+            tag: value[0][1],
+            friend: value[0][2],
+            newTen: value[0][3],
+            listData: value[1],
+            webinfo: value[2]
+            //count: Math.ceil(value[3] / pageSize),
+        }
+        res.render('index', renderData);
+    })
+})
+
 
 //article detail router
 router.get('/article/:id', function (req, res, next) {
@@ -114,6 +190,5 @@ router.get('/article/:id', function (req, res, next) {
     }, function (reason) {
         res.render('error', reason);
     })
-
 })
 module.exports = router;

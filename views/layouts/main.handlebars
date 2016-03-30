@@ -316,6 +316,15 @@
         background: #f8f8f8;
         border-bottom-color: #d26911;
     }
+
+    .friend {
+        margin-top: 6px;
+    }
+
+    .friend a {
+        display: block;
+        line-height: 28px;
+    }
 </style>
 <body>
 <div class="body_container">
@@ -350,7 +359,7 @@
                     <ul class="category-list">
                         {{#each category}}
                             <li class="category-list-item">
-                                <a class="category-list-link" href="/categories/emotion/">
+                                <a class="category-list-link" href="/categories/{{_id}}">
                                     {{name}}
                                 </a>
                             </li>
@@ -370,81 +379,52 @@
                 <div class="widget">
                     <div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div>
                     <ul class="post-list">
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/sin-edict.html">罪己诏</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/lantern-festival.html">十五的月亮十六圆</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/A-Year-of-No-Significance.html">一本书，一首歌</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/foggy-love.html">雾之恋</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link"
-                                                      href="/emotion/a-memorial-2.html">一点碎碎念II</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/the-end-of-the-year-2.html">岁末II</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/windy.html">如梦而行，如风而至</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/twenty-six.html">廿六</a></li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/to-be-better.html">更好</a>
-                        </li>
-                        <li class="post-list-item"><a class="post-list-link" href="/emotion/do-not-talk.html">不要说话</a>
-                        </li>
+                        {{#each newTen}}
+                            <li class="post-list-item"><a class="post-list-link" href="/article/{{_id}}">{{title}}</a>
+                            </li>
+                        {{/each}}
                     </ul>
                 </div>
-                <div class="widget">
-                    <div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div>
-                    <ul class="dsq-widget-list">
-                        <li class="dsq-widget-item"> 雅岚 <span class="dsq-widget-comment"><p>顺其自然，...</p></span>
-                            <p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a
-                                    href="https://www.haomwei.com/emotion/sin-edict.html#comment-2577789641">4 hours
-                                ago</a></p></li>
-                        <li class="dsq-widget-item"> ryp <span class="dsq-widget-comment"><p>您好，我在本地hexo...</p></span>
-                            <p class="dsq-widget-meta"><a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2575930653">1
-                                day ago</a></p></li>
-                        <li class="dsq-widget-item"><a class="dsq-widget-user"
-                                                       href="https://disqus.com/by/disqus_7rnTTQjwxU/">cg</a> <span
-                                class="dsq-widget-comment"><p>有办法让摘要显示一个图片吗？需要在...</p></span>
-                            <p class="dsq-widget-meta"><a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2574186238">2
-                                days ago</a></p></li>
-                        <li class="dsq-widget-item"><a class="dsq-widget-user"
-                                                       href="https://disqus.com/by/jeffery8989/">jeffery8989</a> <span
-                                class="dsq-widget-comment"><p>天真、善良……我也是信了</p></span>
-                            <p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a
-                                    href="https://www.haomwei.com/emotion/sin-edict.html#comment-2572892780">2 days
-                                ago</a></p></li>
-                        <li class="dsq-widget-item"><a class="dsq-widget-user" href="https://disqus.com/by/itfanr/">itfanr</a>
-                            <span class="dsq-widget-comment"><p>请问这个网站的hexo源码哪里能找...</p></span>
-                            <p class="dsq-widget-meta"><a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a
-                                    href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2572125741">3
-                                days ago</a></p></li>
-                    </ul>
-                </div>
+                <!--<div class="widget">-->
+                    <!--<div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div>-->
+                    <!--<ul class="dsq-widget-list">-->
+                        <!--<li class="dsq-widget-item"> 雅岚 <span class="dsq-widget-comment"><p>顺其自然，...</p></span>-->
+                            <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
+                                    <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2577789641">4 hours-->
+                                <!--ago</a></p></li>-->
+                        <!--<li class="dsq-widget-item"> ryp <span class="dsq-widget-comment"><p>您好，我在本地hexo...</p></span>-->
+                            <!--<p class="dsq-widget-meta"><a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2575930653">1-->
+                                <!--day ago</a></p></li>-->
+                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
+                                                       <!--href="https://disqus.com/by/disqus_7rnTTQjwxU/">cg</a> <span-->
+                                <!--class="dsq-widget-comment"><p>有办法让摘要显示一个图片吗？需要在...</p></span>-->
+                            <!--<p class="dsq-widget-meta"><a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2574186238">2-->
+                                <!--days ago</a></p></li>-->
+                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
+                                                       <!--href="https://disqus.com/by/jeffery8989/">jeffery8989</a> <span-->
+                                <!--class="dsq-widget-comment"><p>天真、善良……我也是信了</p></span>-->
+                            <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
+                                    <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2572892780">2 days-->
+                                <!--ago</a></p></li>-->
+                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user" href="https://disqus.com/by/itfanr/">itfanr</a>-->
+                            <!--<span class="dsq-widget-comment"><p>请问这个网站的hexo源码哪里能找...</p></span>-->
+                            <!--<p class="dsq-widget-meta"><a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2572125741">3-->
+                                <!--days ago</a></p></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
                 <div class="widget">
                     <div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div>
-                    <ul></ul>
-                    <a href="http://www.yalanbooks.net/" title="雅岚文艺博客" target="_blank">雅岚文艺博客</a>
-                    <ul></ul>
-                    <a href="http://www.jzwalk.com/" title="羽中漫步" target="_blank">羽中漫步</a>
-                    <ul></ul>
-                    <a href="http://bestcherish.com/" title="灰常记忆" target="_blank">灰常记忆</a>
-                    <ul></ul>
-                    <a href="http://imnerd.org/" title="怡红院落" target="_blank">怡红院落</a>
-                    <ul></ul>
-                    <a href="http://louishan.com/" title="生活志" target="_blank">生活志</a>
-                    <ul></ul>
-                    <a href="https://www.gehaowu.com/" title="葛豪武" target="_blank">葛豪武</a>
-                    <ul></ul>
-                    <a href="http://napolin.cn/" title="拿破林" target="_blank">拿破林</a>
-                    <ul></ul>
-                    <a href="http://haozer.com" title="浩子" target="_blank">浩子</a>
-                    <ul></ul>
-                    <a href="https://yangli.ac.cn" title="Jeff's Domain" target="_blank">Jeff's Domain</a>
-                    <ul></ul>
-                    <a href="http://blog.jamespan.me" title="James Pan's Blog" target="_blank">James Pan's Blog</a>
+                    <div class="friend">
+                        {{#each friend}}
+                            <a href="{{url}}" title="{{name}}" target="_blank">{{name}}</a>
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </div>
