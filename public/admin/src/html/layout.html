@@ -4,7 +4,7 @@
     </p>
     博客管理后台
     <p class="pull-right" style="margin-right: 15px;">
-        <a href="/" style="color: #fff;">网站主页</a>
+        <a href="/" style="color: #fff;" target="_blank">网站主页</a>
     </p>
 </header>
 <nav>
@@ -41,7 +41,7 @@
         <a ui-sref="layout.information">
             个人信息设置
         </a>
-        <a>
+        <a ui-sref="layout.friend">
             友情链接
         </a>
         <a ui-sref="layout.user">
@@ -53,7 +53,6 @@
     </div>
 </nav>
 <div id="layout-content">
-    <a ng-click="goBack()">返回</a>
     <div ui-view="">
     </div>
 </div>

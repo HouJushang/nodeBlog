@@ -17,10 +17,10 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
         return this.ajax(req,postData);
     }
     this.ajax = function (req,postData) {
-        if(postData.toast&&$rootScope.toast.has){
-            alert('不要重复操作!');
-            return false
-        }
+        //if(postData.toast&&$rootScope.toast.has){
+        //    alert('不要重复操作!');
+        //    return false
+        //}
         if(postData.toast){
             toast.create(postData.toast);
         }

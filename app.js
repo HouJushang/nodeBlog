@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./routes/index');
 app.use('/',indexRouter);
 
-var routerArr = ['login','users','category','recommend','article','upload','webinfo','information'];
+var routerArr = ['login','users','category','recommend','article','upload','webinfo','information','friend'];
 routerArr.forEach(function (item) {
     var route = require('./routes/'+item);
     app.use('/' + item, route);

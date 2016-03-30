@@ -78,4 +78,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/webinfo/information.html",
             controller: "informationController"
         })
+        //友情链接
+        .state('layout.friend',{
+            url: '/friend',
+            templateUrl: "www/html/friend/friend.html",
+            controller: "friendController"
+        })
+        .state('layout.addfriend',{
+            url: '/addfriend',
+            templateUrl: "www/html/friend/add.html",
+            controller: "addFriendController"
+        })
 }]);
