@@ -8,3 +8,15 @@
         </div>
         <p class="readmore"><a href="/article/{{_id}}">阅读更多</a></p></div>
 {{/each}}
+<nav class="page-navigator">
+    {{#if count.isNoFrist}}
+        <a class="page-number" href="{{count.url}}{{count.fristPage}}">上一页</a>
+    {{/if}}
+    <!--<span class="page-number current">1</span>-->
+    {{#each count.page}}
+        <a class="page-number" href="{{../count.url}}{{this}}">{{this}}</a>
+    {{/each}}
+    {{#if count.isNoLast}}
+        <a class="page-number" href="{{count.url}}{{count.lastPage}}">下一页</a>
+    {{/if}}
+</nav>

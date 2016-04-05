@@ -8,6 +8,28 @@ var article = require('../dbModel/article');
 var tagModel = require('../dbModel/tag');
 var resJson = require('../config/response');
 
+// Async highlighting with pygmentize-bundled
+marked.setOptions({
+    highlight: function (code, lang, callback) {
+        require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
+            callback(err, result.toString());
+        });
+    }
+});
+
+//// Using async version of marked
+//marked(markdownString, function (err, content) {
+//    if (err) throw err;
+//    console.log(content);
+//});
+
+// Synchronous highlighting with highlight.js
+marked.setOptions({
+    highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
+});
+
 /* category. */
 router.post('/', function (req, res, next) {
     article.find({})
@@ -96,6 +118,7 @@ router.post('/query', function (req, res, next) {
         })
 })
 router.post('/update', function (req, res, next) {
+    req.body.htmlContent = marked(req.body.content);
     var conditions = {_id: req.body._id},
         update = req.body,
         options = {multi: true};

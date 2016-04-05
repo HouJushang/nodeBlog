@@ -1,7 +1,26 @@
 var article = require('../dbModel/article');
+function pageDo(cur, total) {
+    var arr = [];
+    arr.push(cur);
+    for (var i = 1; i < 5; i++) {
+        if (parseInt(cur) + i <= total) {
+            arr.push(parseInt(cur) + i);
+            if (arr.length >= 5) {
+                break;
+            }
+        }
+        if (cur - i >= 1) {
+            arr.unshift(cur - i);
+            if (arr.length >= 5) {
+                break;
+            }
+        }
+    }
+    return arr;
+}
 var promise = function (option) {
-    return new Promise(function (resolve, reject) {
-        article.find(option.data).skip((option.page.currentPage)*option.page.pageSize).limit(option.page.pageSize).exec(function (err, result) {
+    var artPromise = new Promise(function (resolve, reject) {
+        article.find(option.data).skip((option.page.currentPage - 1) * option.page.pageSize).limit(option.page.pageSize).sort({_id: -1}).exec(function (err, result) {
             if (err) {
                 reject(error);
             } else {
@@ -9,5 +28,25 @@ var promise = function (option) {
             }
         });
     });
+    var countPromise = new Promise(function (resolve, reject) {
+        article.count(option.data).exec(function (err, result) {
+            if (err) {
+                reject(error);
+            } else {
+                var page = {
+                    totalPage: Math.ceil(result / option.page.pageSize),
+                    currentPage: option.page.currentPage,
+                    page: pageDo(option.page.currentPage, Math.ceil(result / option.page.pageSize)),
+                    isNoFrist: option.page.currentPage == 1 ? false : true,
+                    isNoLast: option.page.currentPage == Math.ceil(result / option.page.pageSize) ? false : true,
+                    fristPage: option.page.currentPage - 1,
+                    lastPage: parseInt(option.page.currentPage) + 1
+                }
+                resolve(page);
+            }
+        });
+    });
+    return Promise.all([artPromise, countPromise]);
 }
+
 module.exports = promise;

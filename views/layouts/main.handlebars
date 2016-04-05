@@ -6,6 +6,8 @@
     <title>{{webinfo.title}}</title>
     <meta name="keywords" content="{{webinfo.keyword}}">
     <meta name="description" content="{{webinfo.description}}">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/lib/marked.css">
 </head>
 <style>
     body {
@@ -26,7 +28,7 @@
         text-rendering: auto;
     }
 
-    body, h1, p {
+    body, h1, h2, h3, h4, h5, h6, p {
         margin: 0;
     }
 
@@ -349,9 +351,8 @@
             <div id="sidebar">
                 <div class="widget">
                     <form action="//www.google.com/search" accept-charset="utf-8" target="_blank" class="search-form">
-                        <input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden"
-                                                                                               name="sitesearch"
-                                                                                               value="https://www.haomwei.com">
+                        <input type="text" name="q" maxlength="20" placeholder="Search">
+                        <input type="hidden" name="sitesearch" value="https://www.houjushang.com">
                     </form>
                 </div>
                 <div class="widget">
@@ -386,37 +387,37 @@
                     </ul>
                 </div>
                 <!--<div class="widget">-->
-                    <!--<div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div>-->
-                    <!--<ul class="dsq-widget-list">-->
-                        <!--<li class="dsq-widget-item"> 雅岚 <span class="dsq-widget-comment"><p>顺其自然，...</p></span>-->
-                            <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
-                                    <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2577789641">4 hours-->
-                                <!--ago</a></p></li>-->
-                        <!--<li class="dsq-widget-item"> ryp <span class="dsq-widget-comment"><p>您好，我在本地hexo...</p></span>-->
-                            <!--<p class="dsq-widget-meta"><a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2575930653">1-->
-                                <!--day ago</a></p></li>-->
-                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
-                                                       <!--href="https://disqus.com/by/disqus_7rnTTQjwxU/">cg</a> <span-->
-                                <!--class="dsq-widget-comment"><p>有办法让摘要显示一个图片吗？需要在...</p></span>-->
-                            <!--<p class="dsq-widget-meta"><a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2574186238">2-->
-                                <!--days ago</a></p></li>-->
-                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
-                                                       <!--href="https://disqus.com/by/jeffery8989/">jeffery8989</a> <span-->
-                                <!--class="dsq-widget-comment"><p>天真、善良……我也是信了</p></span>-->
-                            <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
-                                    <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2572892780">2 days-->
-                                <!--ago</a></p></li>-->
-                        <!--<li class="dsq-widget-item"><a class="dsq-widget-user" href="https://disqus.com/by/itfanr/">itfanr</a>-->
-                            <!--<span class="dsq-widget-comment"><p>请问这个网站的hexo源码哪里能找...</p></span>-->
-                            <!--<p class="dsq-widget-meta"><a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
-                                    <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2572125741">3-->
-                                <!--days ago</a></p></li>-->
-                    <!--</ul>-->
+                <!--<div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div>-->
+                <!--<ul class="dsq-widget-list">-->
+                <!--<li class="dsq-widget-item"> 雅岚 <span class="dsq-widget-comment"><p>顺其自然，...</p></span>-->
+                <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
+                <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2577789641">4 hours-->
+                <!--ago</a></p></li>-->
+                <!--<li class="dsq-widget-item"> ryp <span class="dsq-widget-comment"><p>您好，我在本地hexo...</p></span>-->
+                <!--<p class="dsq-widget-meta"><a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2575930653">1-->
+                <!--day ago</a></p></li>-->
+                <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
+                <!--href="https://disqus.com/by/disqus_7rnTTQjwxU/">cg</a> <span-->
+                <!--class="dsq-widget-comment"><p>有办法让摘要显示一个图片吗？需要在...</p></span>-->
+                <!--<p class="dsq-widget-meta"><a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2574186238">2-->
+                <!--days ago</a></p></li>-->
+                <!--<li class="dsq-widget-item"><a class="dsq-widget-user"-->
+                <!--href="https://disqus.com/by/jeffery8989/">jeffery8989</a> <span-->
+                <!--class="dsq-widget-comment"><p>天真、善良……我也是信了</p></span>-->
+                <!--<p class="dsq-widget-meta"><a href="https://www.haomwei.com/emotion/sin-edict.html">罪己诏</a>&nbsp;·&nbsp;<a-->
+                <!--href="https://www.haomwei.com/emotion/sin-edict.html#comment-2572892780">2 days-->
+                <!--ago</a></p></li>-->
+                <!--<li class="dsq-widget-item"><a class="dsq-widget-user" href="https://disqus.com/by/itfanr/">itfanr</a>-->
+                <!--<span class="dsq-widget-comment"><p>请问这个网站的hexo源码哪里能找...</p></span>-->
+                <!--<p class="dsq-widget-meta"><a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html">大道至简——Hexo简洁主题推荐</a>&nbsp;·&nbsp;<a-->
+                <!--href="https://www.haomwei.com/technology/maupassant-hexo.html#comment-2572125741">3-->
+                <!--days ago</a></p></li>-->
+                <!--</ul>-->
                 <!--</div>-->
                 <div class="widget">
                     <div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div>
@@ -439,5 +440,7 @@
         </div>
     </div>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

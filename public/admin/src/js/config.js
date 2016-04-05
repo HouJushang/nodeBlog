@@ -2,7 +2,7 @@
  * Created by Laggo on 11/4/15.
  */
 var config = {
-    'SERVER_URL' : 'http://localhost:3030'
+    'SERVER_URL' : 'http://www.houjushang.com'
 };
 for(item in config){
     app.constant(item,config[item])
