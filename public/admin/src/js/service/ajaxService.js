@@ -1,12 +1,11 @@
-app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert', 'toast','Upload',function ($q, $http, $rootScope,SERVER_URL, $state,cAlert,toast,Upload)
-{
+app.service('ajax', ['$q', '$http', '$rootScope', 'SERVER_URL', '$state', 'cAlert', 'toast', 'Upload', function ($q, $http, $rootScope, SERVER_URL, $state, cAlert, toast, Upload) {
     this.post = function (postData) {
         var req = {
             method: 'POST',
             url: SERVER_URL + postData.url,
             data: postData.data
         }
-        return this.ajax(req,postData);
+        return this.ajax(req, postData);
     };
     this.get = function (postData) {
         var req = {
@@ -14,37 +13,39 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
             url: SERVER_URL + postData.url,
             params: postData.data
         }
-        return this.ajax(req,postData);
+        return this.ajax(req, postData);
     }
-    this.ajax = function (req,postData) {
+    this.ajax = function (req, postData) {
         //if(postData.toast&&$rootScope.toast.has){
         //    alert('不要重复操作!');
         //    return false
         //}
-        if(postData.toast){
+        if (postData.toast) {
             toast.create(postData.toast);
         }
         var defer = $q.defer();
         var promise = defer.promise;
         $http(req).then(
             function success(response) {
-                if(response.data.code==200){
+                if (response.data.code == 200) {
                     defer.resolve(response.data.data);
-                }else{
+                } else if (response.data.code == 202) {
+                    $state.go('login')
+                } else {
                     cAlert.create({
-                        mes:response.data.mes
+                        mes: response.data.mes
                     })
                 }
             },
             function failed(response) {
                 cAlert.create({
-                    mes:'服务端错误！'
+                    mes: '服务端错误！'
                 })
             }
         );
         return promise
     }
-    this.upload = function (file,data) {
+    this.upload = function (file, data) {
         var deferred = $q.defer();
         Upload.upload({
             //服务端接收
@@ -58,7 +59,7 @@ app.service('ajax', ['$q', '$http','$rootScope', 'SERVER_URL', '$state', 'cAlert
             console.log('Error status: ' + resp.status);
         }, function (evt) {
             console.log(evt);
-           // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             // deferred.resolve(progressPercentage);
             //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });

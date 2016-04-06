@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 var session = require('express-session');
 var login = require('./routes/login');
 var users = require('./routes/users');
-var exphbs  = require('express-handlebars');
+var exphbs = require('express-handlebars');
 var app = express();
 
 
@@ -23,19 +23,35 @@ app.set('view engine', 'handlebars');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(session({ secret: 'blog' }));
+app.use(session({secret: 'blog',cookie:{maxAge:6000*60}}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //route
 var indexRouter = require('./routes/index');
-app.use('/',indexRouter);
 
-var routerArr = ['login','users','category','recommend','article','upload','webinfo','information','friend'];
+//前台页面路由
+app.use('/', indexRouter);
+
+var loginRoute = require('./routes/login');
+app.use('/super/login', loginRoute)
+
+//登录拦截器
+app.use('/super/', function (req, res, next) {
+    if(req.session.user_id){
+        next();
+    }else{
+        res.json({
+            code : 202,
+            mes : '没有登录'
+        });
+    }
+});
+var routerArr = ['users', 'category', 'recommend', 'article', 'upload', 'webinfo', 'information', 'friend'];
 routerArr.forEach(function (item) {
-    var route = require('./routes/'+item);
-    app.use('/' + item, route);
+    var route = require('./routes/' + item);
+    app.use('/super/' + item, route);
 })
 
 // catch 404 and forward to error handler
@@ -69,12 +85,10 @@ app.use(function (err, req, res, next) {
     });
 });
 
-var mongoose = require("mongoose");
-var db = mongoose.createConnection('localhost', 'blog');
-db.on('error', console.error);
-db.once('open', function () {
-    //console.log('mongodb is true')
-});
-
-
+//var mongoose = require("mongoose");
+//var db = mongoose.createConnection('localhost', 'blog');
+//db.on('error', console.error);
+//db.once('open', function () {
+//    //console.log('mongodb is true')
+//});
 module.exports = app;
