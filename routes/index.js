@@ -54,7 +54,6 @@ function indexRouter(req, res, next) {
             listData: value[2][0],
             count: value[2][1],
         }
-        console.log(renderData);
         res.render('index', renderData);
     }, function (reason) {
         res.render('error', {mes: reason});
@@ -62,8 +61,10 @@ function indexRouter(req, res, next) {
 }
 
 //分类查询文章
-router.get('/categories/:id', function (req, res, next) {
-
+router.get('/categories/:id', categoryRouter)
+router.get('/categories/:id/:page', categoryRouter)
+function categoryRouter(req, res, next) {
+    var currentPage = !isNaN(req.params.page) ? req.params.page : 1;
     var baseDataPromise = new Promise(function (resolve, reject) {
         baseData.then(function (result) {
             resolve(result);
@@ -80,43 +81,48 @@ router.get('/categories/:id', function (req, res, next) {
                 category: req.params.id
             },
             page: {
-                pageSize: 5,
-                currentPage: 0
+                pageSize: 10,
+                currentPage: currentPage
             }
         }).then(function (result) {
             resolve(result);
         })
     })
     Promise.all([baseDataPromise, articleList, webinfoPromise]).then(function (value) {
-        value[1].forEach(function (item, index, arr) {
+        value[1][0].forEach(function (item, index, arr) {
             var dateObj = new Date(item.addTime);
             item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
         })
+        value[1][1].url = '/categories/' + req.params.id + '/';
         var renderData = {
             category: value[0][0],
             tag: value[0][1],
             friend: value[0][2],
             newTen: value[0][3],
-            listData: value[1],
+            listData: value[1][0],
+            count: value[1][1],
             webinfo: value[2]
-            //count: Math.ceil(value[3] / pageSize),
         }
-        console.log(11111, renderData);
         res.render('index', renderData);
     })
-})
+}
+
 
 //get tag atricle
-router.get('/tags/:tag', function (req, res, next) {
-
+router.get('/tags/:tag/:page', tagRouter);
+router.get('/tags/:tag', tagRouter);
+function tagRouter(req, res, next) {
+    var currentPage = !isNaN(req.params.page) ? req.params.page : 1;
     var baseDataPromise = new Promise(function (resolve, reject) {
         baseData.then(function (result) {
             resolve(result);
         })
     });
     var webinfoPromise = new Promise(function (resolve, reject) {
+
         webinfo.then(function (result) {
             resolve(result)
+
         })
     });
     var articleList = new Promise(function (resolve, reject) {
@@ -125,32 +131,31 @@ router.get('/tags/:tag', function (req, res, next) {
                 tag: new RegExp(req.params.tag, "i")
             },
             page: {
-                pageSize: 5,
-                currentPage: 0
+                pageSize: 10,
+                currentPage: currentPage
             }
         }).then(function (result) {
             resolve(result);
         })
     })
     Promise.all([baseDataPromise, articleList, webinfoPromise]).then(function (value) {
-        value[1].forEach(function (item, index, arr) {
+        value[1][0].forEach(function (item, index, arr) {
             var dateObj = new Date(item.addTime);
             item.addTimeObj = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
         })
-
-        value[2][1].url = '/tags/';
+        value[1][1].url = '/tags' + req.params.tag + '/';
         var renderData = {
             category: value[0][0],
             tag: value[0][1],
             friend: value[0][2],
             newTen: value[0][3],
             listData: value[1][0],
-            webinfo: value[2],
-            count: value[1][1]
+            count: value[1][1],
+            webinfo: value[2]
         }
         res.render('index', renderData);
     })
-})
+}
 
 
 //article detail router
