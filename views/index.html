@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% for item in listData %}
+<div class="post"><h2 class="post-title"><a href="/article/{{item._id | safe }}">{{item.title}}</a></h2>
+    <div class="post-meta">{{item.addTimeObj}}</div>
+    <a href="/emotion/windy.html#disqus_thread"
+       class="disqus-comment-count">11条评论</a>
+    <div class="post-content">
+        {{item.description}}
+    </div>
+    <p class="readmore">
+        <a href="/article/{{item._id}}">阅读更多</a>
+    </p>
+</div>
+{% endfor %}
+<nav class="page-navigator">
+    {% if count.currentPage != 1 %}
+    <a class="page-number" href="{{count.url}}{{count.fristPage}}">上一页</a>
+    {% endif %}
+
+    {% for item in count.page %}
+    {% if count.currentPage == item %}
+    <span class="page-number current">{{item}}</span>
+    {% else %}
+    <a class="page-number" href="{{count.url}}{{item}}">{{item}}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if count.currentPage != count.totalPage %}
+    <a class="page-number" href="{{count.url}}{{ count.lastPage }}">下一页</a>
+    {% endif %}
+</nav>
+{% endblock %}

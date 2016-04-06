@@ -37,8 +37,6 @@ var promise = function (option) {
                     totalPage: Math.ceil(result / option.page.pageSize),
                     currentPage: option.page.currentPage,
                     page: pageDo(option.page.currentPage, Math.ceil(result / option.page.pageSize)),
-                    isNoFrist: option.page.currentPage == 1 ? false : true,
-                    isNoLast: option.page.currentPage == Math.ceil(result / option.page.pageSize) ? false : true,
                     fristPage: option.page.currentPage - 1,
                     lastPage: parseInt(option.page.currentPage) + 1
                 }

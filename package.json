@@ -15,7 +15,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "node-compass": "0.2.3",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "debug": "^2.2.0",

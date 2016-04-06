@@ -8,7 +8,8 @@ var mongoose = require("mongoose");
 var session = require('express-session');
 var login = require('./routes/login');
 var users = require('./routes/users');
-var exphbs = require('express-handlebars');
+//var exphbs = require('express-handlebars');
+var swig = require('swig');
 var app = express();
 
 
@@ -16,14 +17,18 @@ var app = express();
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('view cache', false);
+swig.setDefaults({ cache: false });
+app.set('views', path.join(__dirname, 'views'));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(session({secret: 'blog',cookie:{maxAge:6000*60}}));
+app.use(session({secret: 'blog', cookie: {maxAge: 6000 * 60}}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,12 +44,12 @@ app.use('/super/login', loginRoute)
 
 //登录拦截器
 app.use('/super/', function (req, res, next) {
-    if(req.session.user_id){
+    if (req.session.user_id) {
         next();
-    }else{
+    } else {
         res.json({
-            code : 202,
-            mes : '没有登录'
+            code: 202,
+            mes: '没有登录'
         });
     }
 });

@@ -54,6 +54,7 @@ function indexRouter(req, res, next) {
             listData: value[2][0],
             count: value[2][1],
         }
+        console.log(renderData);
         res.render('index', renderData);
     }, function (reason) {
         res.render('error', {mes: reason});
