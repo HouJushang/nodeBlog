@@ -7,6 +7,34 @@ var webinfo = require('../my_modules/webinfo');
 var baseData = require('../my_modules/base');
 
 
+
+
+router.get('/about',function(req, res, next){
+    var baseDataPromise = new Promise(function (resolve, reject) {
+        baseData.then(function (result) {
+            resolve(result);
+        })
+    });
+    var webinfoPromise = new Promise(function (resolve, reject) {
+        webinfo.then(function (result) {
+            resolve(result)
+        })
+    });
+    Promise.all([baseDataPromise, webinfoPromise]).then(function (value) {
+        var renderData = {
+            category: value[0][0],
+            tag: value[0][1],
+            friend: value[0][2],
+            newTen: value[0][3],
+            webinfo: value[1],
+            nav: 'about'
+        }
+        res.render('about', renderData);
+    }, function (reason) {
+        res.render('error', {mes: reason});
+    });
+})
+
 // index router
 router.get('/', indexRouter);
 router.get('/:page', indexRouter);
@@ -53,6 +81,7 @@ function indexRouter(req, res, next) {
             count: value[2][1],
             nav: 'index'
         }
+        console.log(renderData);
         res.render('index', renderData);
     }, function (reason) {
         res.render('error', {mes: reason});
@@ -206,4 +235,5 @@ router.get('/article/:id', function (req, res, next) {
         res.render('error', reason);
     })
 })
+
 module.exports = router;

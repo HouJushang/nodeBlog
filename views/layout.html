@@ -139,7 +139,7 @@
         text-indent: .15em;
     }
 
-    .post .disqus-comment-count {
+    .post .disqus-comment-count,.post .categoryicon {
         padding: 0;
         margin: 15px 0 0;
         color: #6e7173;
@@ -159,11 +159,6 @@
         word-break: normal;
     }
 
-    .post .disqus-comment-count:before {
-        font-family: "FontAwesome";
-        content: "\f0e5";
-        padding-right: .3em;
-    }
 
     .readmore a:after {
         font-family: "FontAwesome";
@@ -336,8 +331,8 @@
             <p class="description">HouJushang's Blog</p></div>
         <div id="nav-menu">
             <a href="/." {% if nav == 'index' %} class="current"  {% endif %}><i class="fa fa-home"> 首页</i></a>
-            <a href="/about/" {% if nav == 'about' %} class="current"  {% endif %}><i class="fa fa-user"> 关于</i></a></a>
-            <a href="/guestbook/" {% if nav == 'leave' %} class="current"  {% endif %}><i class="fa fa-comments"> 留言</i></a>
+            <a href="/about" {% if nav == 'about' %} class="current"  {% endif %}><i class="fa fa-user"> 关于</i></a></a>
+            <a href="/guestbook" {% if nav == 'leave' %} class="current"  {% endif %}><i class="fa fa-comments"> 留言</i></a>
             <a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a>
         </div>
     </header>

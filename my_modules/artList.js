@@ -20,7 +20,7 @@ function pageDo(cur, total) {
 }
 var promise = function (option) {
     var artPromise = new Promise(function (resolve, reject) {
-        article.find(option.data).skip((option.page.currentPage - 1) * option.page.pageSize).limit(option.page.pageSize).sort({_id: -1}).exec(function (err, result) {
+        article.find(option.data).skip((option.page.currentPage - 1) * option.page.pageSize).limit(option.page.pageSize).sort({_id: -1}).populate('category').exec(function (err, result) {
             if (err) {
                 reject(error);
             } else {
