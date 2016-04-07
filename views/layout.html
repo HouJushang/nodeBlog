@@ -335,9 +335,9 @@
             <a id="logo" href="/."><h1 class="hidden">后居上</h1></a>
             <p class="description">HouJushang's Blog</p></div>
         <div id="nav-menu">
-            <a href="/." class="current"><i class="fa fa-home"> 首页</i></a>
-            <a href="/about/"><i class="fa fa-user"> 关于</i></a></a>
-            <a href="/guestbook/"><i class="fa fa-comments"> 留言</i></a>
+            <a href="/." {% if nav == 'index' %} class="current"  {% endif %}><i class="fa fa-home"> 首页</i></a>
+            <a href="/about/" {% if nav == 'about' %} class="current"  {% endif %}><i class="fa fa-user"> 关于</i></a></a>
+            <a href="/guestbook/" {% if nav == 'leave' %} class="current"  {% endif %}><i class="fa fa-comments"> 留言</i></a>
             <a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a>
         </div>
     </header>
