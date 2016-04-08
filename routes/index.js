@@ -7,6 +7,32 @@ var webinfo = require('../my_modules/webinfo');
 var baseData = require('../my_modules/base');
 
 
+router.get('/leave',function(req, res, next){
+    var baseDataPromise = new Promise(function (resolve, reject) {
+        baseData.then(function (result) {
+            resolve(result);
+        })
+    });
+    var webinfoPromise = new Promise(function (resolve, reject) {
+        webinfo.then(function (result) {
+            resolve(result)
+        })
+    });
+    Promise.all([baseDataPromise, webinfoPromise]).then(function (value) {
+        var renderData = {
+            category: value[0][0],
+            tag: value[0][1],
+            friend: value[0][2],
+            newTen: value[0][3],
+            webinfo: value[1],
+            nav: 'leave'
+        }
+        res.render('leave', renderData);
+    }, function (reason) {
+        res.render('error', {mes: reason});
+    });
+})
+
 
 
 router.get('/about',function(req, res, next){

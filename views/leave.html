@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .ds-meta,.ds-tab,.ds-powered-by,.ds-sync{
+        display: none !important;
+    }
+</style>
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="19920902" data-title="留言" data-url="http://www.houjushang.com/leave}}"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"houjushang"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+{% endblock %}

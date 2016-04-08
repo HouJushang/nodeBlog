@@ -73,11 +73,11 @@ gulp.task('watch', function () {
 
 //default task
 gulp.task('default', ['watch','compass','script','html','lib'], function () {
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-    });
+    //browserSync.init({
+    //    server: {
+    //        baseDir: "./"
+    //    }
+    //});
     notifier.notify({
         'title': 'success！',
         'message': 'Gulp running!'

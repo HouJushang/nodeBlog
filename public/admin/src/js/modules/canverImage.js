@@ -1,25 +1,27 @@
 (function () {
     'use strict';
-    var app = angular.module('cAlert', []);
-    app.run(['$rootScope', 'cAlert', 'toast', function ($rootScope, cAlert, toast) {
-        $rootScope.toast = {};
-        cAlert.dismiss();
-        toast.dismiss('demo');
-        angular.element(document.body).append("<calert></calert><toast></toast><cconfirm></cconfirm>");
+    var app = angular.module('canverImage', []);
+    app.run(['$rootScope', function ($rootScope) {
+        $rootScope.canverImage = {
+            url: '',
+            show: false
+        };
+        $rootScope.canverImageShow = function(url){
+            $rootScope.canverImage.url = url;
+            $rootScope.canverImage.show = true;
+        }
+        $rootScope.canverImageClose = function(){
+            $rootScope.canverImage.url = '';
+            $rootScope.canverImage.show = false;
+        }
+        angular.element(document.body).append("<canverimage></canverimage>");
     }]);
-    app.directive('calert', ['$rootScope', 'cAlert', function ($rootScope, cAlert) {
+    app.directive('canverimage', ['$rootScope', function ($rootScope) {
         return {
             restrict: 'E',
             replace: true,
-            template: "<div class='cAlert cAlert-{{cAlert.has}}'><div class='cAlert-box'><div class='cAlert-innerbox'><div class='cAlert-content'><p class='cAlert-title'>提示</p><p class='cAlert-font'>{{cAlert.text}}</p><div class='cAlert-btn-box'><p class='cAlert-btn cAlert-btn-faild' ng-click='dismiss()' ng-if='cAlert.comfirm'>关闭</p><p class='cAlert-btn cAlert-btn-true' ng-click='do()'>确认</p></div></div></div></div></div>",
+            template: "<div class='canverImage canverImage-{{canverImage.show}}' ng-click='canverImageClose()'><div><img ng-src='{{canverImage.url}}' alt=''></div></div>",
             link: function (scope, ele, attrs) {
-                scope.dismiss = function () {
-                    cAlert.dismiss();
-                };
-                scope.do = function () {
-                    if ($rootScope.cAlert.back) $rootScope.cAlert.back();
-                    cAlert.dismiss();
-                }
             }
         }
     }]);
