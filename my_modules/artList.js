@@ -38,7 +38,8 @@ var promise = function (option) {
                     currentPage: option.page.currentPage,
                     page: pageDo(option.page.currentPage, Math.ceil(result / option.page.pageSize)),
                     fristPage: option.page.currentPage - 1,
-                    lastPage: parseInt(option.page.currentPage) + 1
+                    lastPage: parseInt(option.page.currentPage) + 1,
+                    pageSize: result
                 }
                 resolve(page);
             }

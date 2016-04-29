@@ -3,7 +3,9 @@
 {% for item in listData %}
 <div class="post"><h2 class="post-title"><a href="/article/{{item._id | safe }}">{{item.title}}</a></h2>
     <div class="post-meta">{{item.addTimeObj}}</div>
+    {% if item.category._id %}
     <a href="/categories/{{ item.category._id | safe }}" class="fa fa-folder-o categoryicon"> {{item.category.name}}</a>
+    {% endif %}
     <div class="post-content">
         {{item.description}}
     </div>

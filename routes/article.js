@@ -4,51 +4,31 @@
 var express = require('express');
 var router = express.Router();
 var marked = require('marked');
+var artList = require('../my_modules/artList');
 var article = require('../dbModel/article');
 var tagModel = require('../dbModel/tag');
 var resJson = require('../config/response');
 
-// Async highlighting with pygmentize-bundled
-marked.setOptions({
-    highlight: function (code, lang, callback) {
-        require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
-            callback(err, result.toString());
-        });
-    }
-});
+/* article. */
+function articleRouter(req, res, next) {
+    var currentPage = !isNaN(req.body.page) ? req.body.page : 1;
+    artList({
+        data: {},
+        page: {
+            pageSize: 10,
+            currentPage: currentPage
+        }
+    }).then(function (result) {
+        resJson.code = 200;
+        resJson.data = result;
+        resJson.mes = '添加成功';
+        res.json(resJson);
+    })
+}
+router.post('/', articleRouter);
+router.post('/page', articleRouter);
 
-//// Using async version of marked
-//marked(markdownString, function (err, content) {
-//    if (err) throw err;
-//    console.log(content);
-//});
-
-// Synchronous highlighting with highlight.js
-marked.setOptions({
-    highlight: function (code) {
-        return require('highlight.js').highlightAuto(code).value;
-    }
-});
-
-/* category. */
-router.post('/', function (req, res, next) {
-    article.find({})
-        .populate('category')
-        .exec(function (err, result) {
-            if (result) {
-                console.log(result);
-                resJson.mes = '文章列表';
-                resJson.code = 200;
-                resJson.data = result;
-            } else {
-                resJson.mes = '没有文章';
-                resJson.code = 201;
-            }
-            res.json(resJson);
-        })
-});
 router.post('/add', function (req, res, next) {
-    //tag do
     var tagArr = req.body.tag.split(',')
     tagArr.forEach(function (item, index, arr) {
         tagModel.findOne({name: item}).exec(function (err, result) {
