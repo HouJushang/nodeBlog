@@ -2,7 +2,7 @@
  * Created by Laggo on 11/5/15.
  */
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/home");
+    $urlRouterProvider.otherwise("/login");
     // Now set up the states
     $stateProvider
         //登录
