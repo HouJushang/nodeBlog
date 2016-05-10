@@ -107,7 +107,6 @@ function indexRouter(req, res, next) {
             count: value[2][1],
             nav: 'index'
         }
-        console.log(renderData);
         res.render('index', renderData);
     }, function (reason) {
         res.render('error', {mes: reason});
@@ -237,8 +236,9 @@ router.get('/article/:id', function (req, res, next) {
                     } else {
                         console.log('阅读次数增加成功失败!')
                     }
+                    resolve(result);
                 });
-                resolve(result)
+                
             })
     });
     Promise.all([baseDataPromise, artPromise,webinfoPromise]).then(function (value) {

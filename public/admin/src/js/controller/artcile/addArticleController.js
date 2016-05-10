@@ -1,4 +1,4 @@
-app.controller('addArticleController', ['$scope', 'ajax', 'toast', '$state','SERVER_URL', function ($scope, ajax, toast, $state,SERVER_URL) {
+app.controller('addArticleController', ['$scope', 'ajax', 'toast', '$state','BASE_URL', function ($scope, ajax, toast, $state,BASE_URL) {
     $scope.submit = function () {
         ajax.post({
             url: '/article/add',
@@ -14,8 +14,7 @@ app.controller('addArticleController', ['$scope', 'ajax', 'toast', '$state','SER
 
     $scope.uploadImg = function(file){
         ajax.upload(file).then(function(result){
-            $scope.imgPath = SERVER_URL+"/upload/"+result.filename;
-            console.log(result);
+            $scope.imgPath = BASE_URL+"/upload/"+result.filename;
         })
     }
 }]);
