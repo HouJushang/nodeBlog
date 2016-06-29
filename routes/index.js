@@ -26,7 +26,7 @@ router.get('/leave',function(req, res, next){
             newTen: value[0][3],
             webinfo: value[1],
             nav: 'leave'
-        }
+        };
         res.render('leave', renderData);
     }, function (reason) {
         res.render('error', {mes: reason});
@@ -65,7 +65,6 @@ router.get('/about',function(req, res, next){
 router.get('/', indexRouter);
 router.get('/:page', indexRouter);
 function indexRouter(req, res, next) {
-
     var currentPage = !isNaN(req.params.page) ? req.params.page : 1;
     var baseDataPromise = new Promise(function (resolve, reject) {
         baseData.then(function (result) {
@@ -87,7 +86,7 @@ function indexRouter(req, res, next) {
         }).then(function (result) {
             resolve(result);
         })
-    })
+    });
     Promise.all([baseDataPromise, webinfoPromise, articleList]).then(function (value) {
         //文章列表时间格式转换
         value[2][0].forEach(function (item, index, arr) {
@@ -114,8 +113,8 @@ function indexRouter(req, res, next) {
 }
 
 //分类查询文章
-router.get('/categories/:id', categoryRouter)
-router.get('/categories/:id/:page', categoryRouter)
+router.get('/categories/:id', categoryRouter);
+router.get('/categories/:id/:page', categoryRouter);
 function categoryRouter(req, res, next) {
     var currentPage = !isNaN(req.params.page) ? req.params.page : 1;
     var baseDataPromise = new Promise(function (resolve, reject) {
@@ -238,10 +237,10 @@ router.get('/article/:id', function (req, res, next) {
                     }
                     resolve(result);
                 });
-                
             })
     });
     Promise.all([baseDataPromise, artPromise,webinfoPromise]).then(function (value) {
+
         value[1].addTimeObj = value[1].addTime.getFullYear() + "-" + (value[1].addTime.getMonth() + 1) + "-" + value[1].addTime.getDate();
         var renderData = {
             category: value[0][0],
@@ -256,6 +255,7 @@ router.get('/article/:id', function (req, res, next) {
             artData: value[1],
             nav : 'index'
         };
+        console.log(renderData);
         res.render('detail', renderData);
     }, function (reason) {
         res.render('error', reason);

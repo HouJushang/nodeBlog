@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(session({secret: 'blog', cookie: {maxAge: 6000 * 60}}));
+app.use(session({secret: 'blog', cookie: {maxAge: 6000 * 60}, resave: true, saveUninitialized: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,7 +40,7 @@ var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
 var loginRoute = require('./routes/login');
-app.use('/super/login', loginRoute)
+app.use('/super/login', loginRoute);
 
 //登录拦截器
 app.use('/super/', function (req, res, next) {
@@ -53,7 +53,7 @@ app.use('/super/', function (req, res, next) {
         });
     }
 });
-var routerArr = ['users', 'category', 'recommend', 'article', 'upload', 'webinfo', 'information', 'friend'];
+var routerArr = ['users', 'category', 'recommend', 'article', 'upload', 'webinfo', 'information', 'friend','file'];
 routerArr.forEach(function (item) {
     var route = require('./routes/' + item);
     app.use('/super/' + item, route);

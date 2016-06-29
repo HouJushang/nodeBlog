@@ -96,7 +96,7 @@ router.post('/query', function (req, res, next) {
             }
             res.json(resJson);
         })
-})
+});
 router.post('/update', function (req, res, next) {
     req.body.htmlContent = marked(req.body.content);
     var conditions = {_id: req.body._id},

@@ -43,5 +43,5 @@ router.post('/del',function(req, res, next){
         }
         res.json(resJson);
     })
-})
+});
 module.exports = router;

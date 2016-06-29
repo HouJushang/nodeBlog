@@ -89,4 +89,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "www/html/friend/add.html",
             controller: "addFriendController"
         })
+        .state('layout.file',{
+            url: '/file',
+            templateUrl: "www/html/file/file.html",
+            controller: "fileController"
+        })
 }]);
