@@ -21,7 +21,7 @@ function articleRouter(req, res, next) {
     }).then(function (result) {
         resJson.code = 200;
         resJson.data = result;
-        resJson.mes = '添加成功';
+        resJson.mes = '成功';
         res.json(resJson);
     })
 }
