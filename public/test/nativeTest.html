@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<button id="btn">
+    测试安卓接口
+</button>
+<button id='btn2'>
+    调用安卓toast
+</button>
+<script>
+    console.log("你已经进入了");
+    var oBtn = document.getElementById("btn");
+    var oBtn2 = document.getElementById("btn2");
+
+    oBtn.onclick = function(){
+        console.log(AndroidApi.toString());
+    }
+    oBtn2.onclick= function(){
+        AndroidApi.androidToast("sdf");
+    }
+</script>
+</body>
+</html>
