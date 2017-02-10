@@ -229,17 +229,19 @@ router.get('/article/:id', function (req, res, next) {
                 if(err){
                     return
                 }
-                var conditions = {_id: result._id || ''},
-                    update = {count: result.count + 1},
-                    options = {multi: true};
-                artModel.update(conditions, update, options, function (err) {
-                    if (!err) {
-                        console.log('阅读次数增加成功!')
-                    } else {
-                        console.log('阅读次数增加成功失败!')
-                    }
-                    resolve(result);
-                });
+                if(result && result._id){
+                    var conditions = {_id: result._id || ''},
+                        update = {count: result.count + 1},
+                        options = {multi: true};
+                    artModel.update(conditions, update, options, function (err) {
+                        if (!err) {
+                            console.log('阅读次数增加成功!')
+                        } else {
+                            console.log('阅读次数增加成功失败!')
+                        }
+                        resolve(result);
+                    });
+                }
             })
     });
     Promise.all([baseDataPromise, artPromise,webinfoPromise]).then(function (value) {
