@@ -229,7 +229,7 @@ router.get('/article/:id', function (req, res, next) {
                 if(err){
                     return
                 }
-                var conditions = {_id: result._id},
+                var conditions = {_id: result._id || ''},
                     update = {count: result.count + 1},
                     options = {multi: true};
                 artModel.update(conditions, update, options, function (err) {
