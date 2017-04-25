@@ -6,8 +6,24 @@ var artList = require('../my_modules/artList');
 var webinfo = require('../my_modules/webinfo');
 var baseData = require('../my_modules/base');
 
+
+var https=require('https');
 router.get('/wechat',function(req, res, next){
-    console.log(req)
+    console.log(req.query.code);
+    var tmpUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxd8d690d063af04ea&secret=eb9e8a95c6b9c57152d8a566311d3bd5&code=${req.query.code}&grant_type=authorization_code`
+    //请求这个地址  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+
+    http.get(tmpUrl, function(req,res){
+        var html='';
+        req.on('data',function(data){
+            console.log(11111, data);
+        });
+        req.on('end',function(){
+            console.info(html);
+        });
+    });
+
+    res.render('wechat', {data: reason});
 })
 
 
