@@ -223,9 +223,9 @@ router.get('/article/:id', function (req, res, next) {
     });
     var webinfoPromise = new Promise(function (resolve, reject) {
         webinfo.then(function (result) {
-            resolve(result)
+            resolve(result);
         })
-    }
+    });
     var artPromise = new Promise(function (resolve, reject) {
         artModel.findOne({_id: req.params.id})
             .populate('category')
