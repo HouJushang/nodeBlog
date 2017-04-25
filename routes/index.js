@@ -14,6 +14,7 @@ router.get('/wechat',function(req, res, next){
     https.get(tmpUrl, function(req,res2){
         var html='';
         req.on('data',function(data){
+            console.log(data);
             res.render('wechat', {data: data});
         });
         req.on('end',function(){
