@@ -1,4 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {{data}}
+<ul>
+    {% for key, item in data %}
+    <li>{{ key }}: {{ item }}</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
