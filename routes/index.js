@@ -16,14 +16,13 @@ router.get('/wechat',function(req, res, next){
     http.get(tmpUrl, function(req,res){
         var html='';
         req.on('data',function(data){
-            console.log(11111, data);
+            res.render('wechat', {data: data});
         });
         req.on('end',function(){
             console.info(html);
         });
     });
 
-    res.render('wechat', {data: reason});
 })
 
 
