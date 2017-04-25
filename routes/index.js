@@ -13,6 +13,7 @@ router.get('/wechat',function(req, res, next){
     console.log(tmpUrl);
     https.get(tmpUrl, function(req2,res2){
         var html='';
+        res2.setEncoding('utf8');
         req2.on('data',function(data){
             process.stdout.write(data);
             console.log(data);
