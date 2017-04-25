@@ -6,6 +6,10 @@ var artList = require('../my_modules/artList');
 var webinfo = require('../my_modules/webinfo');
 var baseData = require('../my_modules/base');
 
+router.get('/wechat',function(req, res, next){
+    console.log(req)
+})
+
 
 router.get('/leave',function(req, res, next){
     var baseDataPromise = new Promise(function (resolve, reject) {
@@ -221,7 +225,7 @@ router.get('/article/:id', function (req, res, next) {
         webinfo.then(function (result) {
             resolve(result)
         })
-    });
+    }
     var artPromise = new Promise(function (resolve, reject) {
         artModel.findOne({_id: req.params.id})
             .populate('category')
