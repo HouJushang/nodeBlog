@@ -9,11 +9,9 @@ var baseData = require('../my_modules/base');
 
 var https=require('https');
 router.get('/wechat',function(req, res, next){
-    console.log(req.query.code);
-    var tmpUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxd8d690d063af04ea&secret=eb9e8a95c6b9c57152d8a566311d3bd5&code=${req.query.code}&grant_type=authorization_code`
-    //请求这个地址  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
-
-    http.get(tmpUrl, function(req,res){
+    var tmpUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxd8d690d063af04ea&secret=eb9e8a95c6b9c57152d8a566311d3bd5&code=${req.query.code}&grant_type=authorization_code`;
+    console.log(tmpUrl);
+    https.get(tmpUrl, function(req,res){
         var html='';
         req.on('data',function(data){
             res.render('wechat', {data: data});
